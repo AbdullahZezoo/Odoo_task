@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+Manager_id,Manager,model_customer_operations,group_customer_operations_Manager,1,1,1,1
+User_id,User,model_customer_operations,group_customer_operations_user,1,1,1,1

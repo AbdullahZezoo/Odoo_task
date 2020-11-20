@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="customer_tree_view" model="ir.ui.view">
+        <field name="name">installment.installment.tree</field>
+        <field name="model">installment.installment</field>
+        <field name="arch" type="xml">
+            <tree string="Customers">
+                <field name="name"/>
+                <field name="reference" />
+                <field name="state" />
+                <field name="date" />
+                <field name="customer" />
+                <field name="journal" />
+                <field name="account" />
+                <field name="analytic_account" />
+                <field name="analytic_tags" />
+                <field name="amount" />
+                <field name="note" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="customer_from_view" model="ir.ui.view">
+        <field name="inherit_id" ref="installment.installment_view_form"/>
+        <field name="name">installment.installment.form</field>
+        <field name="model">installment.installment</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban">
+                <xpath expr="//page[@string='Personal Information']" position='after'>
+                    <page string='payments'>
+                        <field name="..."/>
+                    </page>
+                </xpath>
+                <form string="Customers">
+                    <sheet>
+                        <field name="name"/>
+                        <field name="reference" />
+                        <field name="state" />
+                        <field name="date" />
+                        <field name="customer" />
+                        <field name="journal" />
+                        <field name="account" />
+                        <field name="analytic_account" />
+                        <field name="analytic_tags" />
+                        <field name="amount" />
+                        <field name="note" />
+                    </sheet>
+                </form>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Search View for Customer Installment -->
+		<record id="customer_search_view" model="ir.ui.view">
+			<field name="name">installment.installment.view</field>
+			<field name="model">installment.installment</field>
+			<field name="arch" type="xml">
+				<search string="customer Information">
+					 <field name="name"/>
+                        <field name="reference" />
+                        <field name="state" />
+                        <field name="date" />
+                        <field name="customer" />
+                        <field name="journal" />
+                        <field name="account" />
+                        <field name="analytic_account" />
+                        <field name="analytic_tags" />
+                        <field name="amount" />
+                        <field name="note" />
+					<group expand="0" string="Group By">
+						<filter name="groupby_customer" string="Course" domain="[]" context="{'group_by':'customer_id'}"
+							help="Group Customer"/>
+						<filter name="groupby_year" context="{'group_by': 'date:year'}" string="Year"
+							help="Group installment by Year" />
+						<filter name="groupby_month" context="{'group_by': 'date:month'}" string="Month"/>
+					</group>
+					<filter name="fil_by_disability" string="Physically Disabled" domain="[('is_physically_disabled','=','True')]"
+						help="Show all Physically Disabled customers" />
+					<filter string="InstallmentCurrent Year" name="fil_by_current_year" domain="[('date','&lt;=',
+						time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]"
+						help="Filter Customer Installment in Current Year"/>
+				</search>
+			</field>
+		</record>
+
+    <record id="action_customer" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="type">ir.actions.act_window"</field>
+        <field name="res_model">installment.installment</field>
+        <field name="view_model">tree, form</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <menuitem id="Installments_root_menu"
+              web_icon=""
+              name="Installments"
+    />
+
+    <menuitem id="Customer_installments_menu"
+              web_icon=""
+              name="Customer_installments" action="action_customer"
+              parent="Installments_root_menu"
+              sequence="1"
+    />
+
+</odoo>
