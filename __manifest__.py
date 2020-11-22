@@ -1,6 +1,6 @@
 {
     'name': 'customer_operations',
-    'version': '13.1',
+    'version': '1.0',
     'category': 'Tools',
     'summary': 'customer installments and payments',
     'depends': ['web'],
